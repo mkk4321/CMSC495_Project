@@ -1,0 +1,21 @@
+Tenacious Turtles Clothing Co. 
+Store #: 10001
+1234 Main Street
+Adelphi, MD 20783
+321-123-4567
+
+Transaction #: 000000001
+Date: 09/06/2016 04:22:37 PM
+Payment Type: Cash
+
+QTY	ITEM		SIZE	PRICE
+*************************************
+1	red M Shorts	32	15.99
+2	grn G skirt	S	06.99
+
+
+3 Items		Sub-Total:	29.97
+Tax 6%:	1.80	Total:		31.77
+
+Thank you for shopping at
+Tenacious Turtles Clothing Co.!
