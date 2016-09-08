@@ -61,6 +61,7 @@ public class TransactionForm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         transTable = new javax.swing.JTable();
         button3 = new java.awt.Button();
+	tablemodel = new TransactionTableModel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -171,61 +172,7 @@ public class TransactionForm extends javax.swing.JFrame {
         totalUnits.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         totalUnits.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        transTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "UPC Code", "Style", "Style Name", "Color", "Color Name", "Size", "Gender", "Price", "Units", "Amount"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        transTable.setModel(tablemodel);
         transTable.setColumnSelectionAllowed(true);
         transTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         transTable.setFillsViewportHeight(true);
