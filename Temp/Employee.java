@@ -5,6 +5,9 @@
  */
 package cmsc495_tt;
 
+//import java.sql.SQLException;
+import java.sql.*;
+import java.util.*;
 /**
  *
  * @author vance.molhusen
@@ -12,17 +15,42 @@ package cmsc495_tt;
 public class Employee {
     
     protected int storeNum;
-    protected int employeeID;
+    protected String employeeID;
     protected String firstName;
     protected String lastName;
     protected String designation;
-    
+    protected String password;
+    private Connection con = null;
+    private Statement stmt = null;
+    private ResultSet rs = null;
     Employee(){
         storeNum = -1;
-        employeeID = -1;
+        employeeID = null;
         firstName = null;
         lastName = null;
         designation = null;
+    }
+    Employee(int storeNumIn, String employeeIDIn) {
+        con = ConnectManager.getConnection();
+        String store_str = String.valueOf(storeNumIn);
+     
+        String sqlStr = "select * from employee_master where store_num = " +
+                     store_str + " and employee_id = '" + employeeIDIn + "'";
+        
+        try {
+            stmt = con.createStatement(); 
+            rs = stmt.executeQuery(sqlStr);
+            while(rs.next()) {
+                this.firstName = rs.getString(3);
+                this.lastName = rs.getString(4);
+                this.designation = rs.getString(5);
+                this.password = rs.getString(6);
+                         }
+            this.employeeID = employeeIDIn;
+            this.storeNum = storeNumIn;
+            con.close();
+        } catch (SQLException ex) {System.out.println("Failed to create the Statment");
+        }
     }
     
     public void setStoreNum(int value){}
@@ -33,7 +61,7 @@ public class Employee {
     public int getStoreNum(){
         return storeNum;
     }
-    public int getEmployeeID(){
+    public String getEmployeeID(){
         return employeeID;
     }
     public String getFirstName(){
@@ -44,6 +72,9 @@ public class Employee {
     }
     public String getDesignation(){
         return designation;
+    }
+    public String getPassword() {
+        return password;
     }
 
 }
