@@ -5,6 +5,8 @@
  */
 package cmsc495_tt;
 
+import java.util.Date;
+
 /**
  *
  
@@ -22,6 +24,14 @@ public class TransactionItem {
     protected double price;
     protected int units;
     protected double amount;
+    protected boolean returned;
+    protected int returnUnits;
+    protected Date returnDate;
+    protected int returnTransNum;
+    protected int origTransSeq;
+    protected int origTransNum;
+    protected int origUnits;
+    
     
     TransactionItem(){
     this.upc = "";
@@ -34,6 +44,13 @@ public class TransactionItem {
     this.price = 0;
     this.units = 0;
     this.amount = 0;
+    this.returned = false;
+    this.returnDate = null;
+    this.returnTransNum = 0;
+    this.returnUnits = 0;
+    this.origTransNum = 0;
+    this.origTransSeq = 0;
+    this.origUnits = 0;
     }
     
     //GETTERS
@@ -80,7 +97,7 @@ public class TransactionItem {
     //SETTERS
     public void setUPC(String value){
         this.upc = value;
-    }
+         }
     
     public void setStyle(String value){
         this.style = value;
@@ -111,12 +128,69 @@ public class TransactionItem {
     }
     
     public void setUnits(int value){
-       
         this.units = value;
+        this.amount = this.units * this.price;
 
     }
     
     public void setAmount(double value){
         this.amount = value;
+    }
+    
+    public void setReturned(boolean value){
+        returned = value;
+    }
+    public void setReturnDate(Date value){
+        returnDate = value;
+    }
+  
+    public void setReturnUnits(int value){
+        returnUnits = value;
+    }
+    public void setReturnTransNum(int value){
+        returnTransNum = value;
+    }
+    public void setOrigTransNum(int value) {
+        origTransNum = value;
+        
+    }
+    public void setOrigTransSeq(int value) {
+        origTransSeq = value;
+        
+    }
+    public void setOrigUnits(int value) {
+        origUnits = value;
+    }
+        
+    
+    
+    
+    public double getTransAmount(){
+        return amount;
+    }
+  //  public Date getTransDateTime(){
+//        return dateTime;
+//    } 
+    public boolean getReturned(){
+        return returned;
+    }
+    public Date getReturnDate(){
+        return returnDate;
+    }
+    public int getReturnUnits(){
+        return returnUnits;
+    }
+    public int getReturnTransNum(){
+        return returnTransNum;
+    }
+    public int getOrigTransNum() {
+        return origTransNum;
+    }
+    public int getOrigTransSeq() {
+        return origTransSeq;
+    }
+    
+    public int getOrigUnits() {
+        return origUnits;
     }
 }

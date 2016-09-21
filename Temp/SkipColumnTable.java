@@ -47,6 +47,8 @@ public class SkipColumnTable extends JTable {
                 .put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "selectNextColumnCell");
 
     }
+    
+    
 
     @Override
     public void changeSelection(int row, int col, boolean toggle, boolean expand) {
@@ -149,7 +151,8 @@ public class SkipColumnTable extends JTable {
         }
 
         super.changeSelection(targetViewRow, targetViewCol, toggle, expand);
-        // this.getDefaultEditor (String.class).addCellEditorListener(UpcChange);
     }
+    
+    
         
 }

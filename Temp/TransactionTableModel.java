@@ -6,6 +6,7 @@
 package cmsc495_tt;
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.*;
 /**
  *
  * @author vance.molhusen
@@ -25,6 +26,11 @@ public class TransactionTableModel extends AbstractTableModel {
     protected boolean[] canEdit = new boolean [] {
                 true, false, false, false, false, false, false, false, true, false
             };
+    /*
+    protected Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
+            };
+    */
     protected Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
             };
@@ -88,9 +94,12 @@ public class TransactionTableModel extends AbstractTableModel {
         }
     }
     
+    public void setColumnAccess(int column, boolean access) {
+        this.canEdit[column] = access;
+    }
+    @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex){
         TransactionItem transItem = (TransactionItem) transactionData.get(rowIndex);
-        System.out.println(transItem.getUnits());
         switch(columnIndex){
             case UPC_INDEX:
                 transItem.setUPC((String) value);
