@@ -10,7 +10,7 @@ package cmsc495_tt;
  * @author Manoj
  */
 public class LogInForm extends javax.swing.JFrame {
-
+    private Employee employeeObj;
     /**
      * Creates new form LogInForm
      */
@@ -29,51 +29,42 @@ public class LogInForm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        javax.swing.JTextField tTotalUnits2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        javax.swing.JTextField tTotalUnits3 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        javax.swing.JTextField tTotalUnits4 = new javax.swing.JTextField();
         button1 = new java.awt.Button();
+        storeNumFld = new javax.swing.JTextField();
+        employeeIDfld = new javax.swing.JTextField();
+        passwordFld = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel6.setText("Store Number:");
-
-        tTotalUnits2.setText("        ");
-        tTotalUnits2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tTotalUnits2ActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Tenacious Turtles Clothing Company");
 
         jLabel8.setText("Employee Log-in ID:");
 
-        tTotalUnits3.setText("        ");
-        tTotalUnits3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tTotalUnits3ActionPerformed(evt);
-            }
-        });
-
         jLabel9.setText("Password:");
-
-        tTotalUnits4.setText("        ");
-        tTotalUnits4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tTotalUnits4ActionPerformed(evt);
-            }
-        });
 
         button1.setActionCommand("buttonLogIn");
         button1.setLabel("Log-in");
         button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button1ActionPerformed(evt);
+            }
+        });
+
+        storeNumFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                storeNumFldActionPerformed(evt);
+            }
+        });
+
+        employeeIDfld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                employeeIDfldActionPerformed(evt);
             }
         });
 
@@ -94,15 +85,15 @@ public class LogInForm extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tTotalUnits3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tTotalUnits2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(storeNumFld, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(employeeIDfld, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                            .addComponent(tTotalUnits4))))
-                .addContainerGap(339, Short.MAX_VALUE))
+                            .addComponent(passwordFld))))
+                .addContainerGap(334, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,15 +103,15 @@ public class LogInForm extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(tTotalUnits3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(storeNumFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(tTotalUnits2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(employeeIDfld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(tTotalUnits4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(72, Short.MAX_VALUE))
@@ -146,25 +137,33 @@ public class LogInForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tTotalUnits2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tTotalUnits2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tTotalUnits2ActionPerformed
-
-    private void tTotalUnits3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tTotalUnits3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tTotalUnits3ActionPerformed
-
-    private void tTotalUnits4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tTotalUnits4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tTotalUnits4ActionPerformed
-
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
+         int storeNum  = Integer.valueOf(storeNumFld.getText());
+         Store storeObj = new Store(storeNum);
+         if (storeObj.getAddress1() == "") {
+             
+         }
+         Employee employeeObj = new Employee(storeNum, employeeIDfld.getText());
+         if (employeeObj.getFirstName() == "" ) {
+             
+         }
+         if (employeeObj.getPassword() != passwordFld.getSelectedText()) {
+             
+         }
          this.setVisible(false);
-         TransactionForm transFrm = new TransactionForm();
+         TransactionForm transFrm = new TransactionForm(employeeObj);
          transFrm.setVisible(true);
          this.dispose();
     }//GEN-LAST:event_button1ActionPerformed
+
+    private void storeNumFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storeNumFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_storeNumFldActionPerformed
+
+    private void employeeIDfldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeIDfldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_employeeIDfldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,10 +202,13 @@ public class LogInForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
+    private javax.swing.JTextField employeeIDfld;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField passwordFld;
+    private javax.swing.JTextField storeNumFld;
     // End of variables declaration//GEN-END:variables
 }
