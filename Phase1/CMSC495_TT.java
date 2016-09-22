@@ -18,7 +18,7 @@ import javax.swing.JFrame;
  *
  * @author Manoj
  */
-public class CMSC495_TT extends Application {
+public class cmsc495_tt extends Application {
     
  //   @Override
     public void start(Stage primaryStage) {    
