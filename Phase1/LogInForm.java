@@ -38,8 +38,8 @@ public class LogInForm extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         button1 = new java.awt.Button();
         passwordFld = new javax.swing.JPasswordField();
-        storeNumFld = new java.awt.TextField();
         empIDFld = new java.awt.TextField();
+        storeNumFld = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,14 +66,11 @@ public class LogInForm extends javax.swing.JFrame {
             }
         });
 
+        storeNumFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        storeNumFld.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         storeNumFld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 storeNumFldActionPerformed(evt);
-            }
-        });
-        storeNumFld.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                storeNumFldKeyReleased(evt);
             }
         });
 
@@ -94,26 +91,26 @@ public class LogInForm extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(storeNumFld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(empIDFld, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)))
+                            .addComponent(empIDFld, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(storeNumFld)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                             .addComponent(passwordFld, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addContainerGap(336, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(storeNumFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(empIDFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -199,21 +196,16 @@ public class LogInForm extends javax.swing.JFrame {
          }                
     }//GEN-LAST:event_button1ActionPerformed
 
-    private void storeNumFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storeNumFldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_storeNumFldActionPerformed
-
     private void passwordFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordFldActionPerformed
 
-    private void storeNumFldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_storeNumFldKeyReleased
+    private void storeNumFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storeNumFldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_storeNumFldKeyReleased
+    }//GEN-LAST:event_storeNumFldActionPerformed
     private Boolean ChkPassword(char[] password1, char[] password2) {
         boolean retFlag = false;
         for (int i=0;i<9;i++){
-            System.out.println(password1[i] + "   " + password2[i]);
             if (password1[i] != password2[i]) retFlag = true;
         }
         return retFlag;
@@ -263,6 +255,6 @@ public class LogInForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField passwordFld;
-    private java.awt.TextField storeNumFld;
+    private javax.swing.JFormattedTextField storeNumFld;
     // End of variables declaration//GEN-END:variables
 }
