@@ -105,13 +105,13 @@ public class Transaction {
     public void setInvVector(Vector vec) {
         invVector = vec;
     }
-    public void setStore(Store str) {
+    public void setStoreObj(Store str) {
         storeObj = str;
     }
     public void setTransactionTableModel (TransactionTableModel model) {
         transModelObj = model;
     }
-    public void setEmployee(Employee emp) {
+    public void setEmployeeObj(Employee emp) {
         employeeObj = emp;
     }
     public void setMerchAmount(double value){
@@ -178,13 +178,13 @@ public class Transaction {
     public Vector getInvVector() {
         return invVector;
     }
-    public Store getStore() {
+    public Store getStoreObj() {
         return storeObj;
     }
     public TransactionTableModel getTransModelObj () {
         return transModelObj;
     }
-    public Employee getEmployee() {
+    public Employee getEmployeeObj() {
         return employeeObj;
     }
     public String upcChanged(int rw, int cl, String upcCode) {
@@ -554,14 +554,15 @@ public class Transaction {
      
         String sqlStr = "select * from transaction_detail where trans_num = " +
                      trans_str + " and return_units < units ";
-        
+        transItemVector.clear();
+        TransactionItem transItemObj;
         try {
             stmt = con.createStatement(); 
             rs = stmt.executeQuery(sqlStr);
             // transItemVector = new <InventoryItem> Vector();
-            transItemVector.clear();
+
             int i = -1;
-            TransactionItem transItemObj;
+
             while(rs.next()) {
                 paymentType = "Cash";
                 i++;

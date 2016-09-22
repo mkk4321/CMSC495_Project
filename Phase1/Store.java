@@ -11,6 +11,7 @@ package cmsc495_tt;
  */
 import java.sql.*;
 import java.util.*;
+import java.lang.RuntimeException;
 public class Store {
     
     private int storeNum;
@@ -37,6 +38,7 @@ public class Store {
     
        
       con = ConnectManager.getConnection();
+     
         String store_str = String.valueOf(storeNumIn);
      
         String sqlStr = "select * from store_master where store_num = " +
@@ -55,7 +57,10 @@ public class Store {
                          }
             this.storeNum = storeNumIn;
             con.close();
-        } catch (SQLException ex) {System.out.println("Failed to create the Statment");
+        } catch (Exception ex) {
+            System.out.println("ex");
+            throw new RuntimeException(ex);
+           
         }      
     }
     

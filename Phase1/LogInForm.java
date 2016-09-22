@@ -9,6 +9,10 @@ package cmsc495_tt;
  *
  * @author Manoj
  */
+
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 public class LogInForm extends javax.swing.JFrame {
     private Employee employeeObj;
     /**
@@ -33,9 +37,9 @@ public class LogInForm extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         button1 = new java.awt.Button();
-        storeNumFld = new javax.swing.JTextField();
-        employeeIDfld = new javax.swing.JTextField();
         passwordFld = new javax.swing.JPasswordField();
+        storeNumFld = new java.awt.TextField();
+        empIDFld = new java.awt.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,15 +60,20 @@ public class LogInForm extends javax.swing.JFrame {
             }
         });
 
+        passwordFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordFldActionPerformed(evt);
+            }
+        });
+
         storeNumFld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 storeNumFldActionPerformed(evt);
             }
         });
-
-        employeeIDfld.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                employeeIDfldActionPerformed(evt);
+        storeNumFld.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                storeNumFldKeyReleased(evt);
             }
         });
 
@@ -84,30 +93,30 @@ public class LogInForm extends javax.swing.JFrame {
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(storeNumFld, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(employeeIDfld, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(storeNumFld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(empIDFld, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                            .addComponent(passwordFld))))
-                .addContainerGap(334, Short.MAX_VALUE))
+                            .addComponent(passwordFld, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                .addContainerGap(339, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(storeNumFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(employeeIDfld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(empIDFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -131,7 +140,7 @@ public class LogInForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(107, 107, 107)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,31 +149,75 @@ public class LogInForm extends javax.swing.JFrame {
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
          int storeNum  = Integer.valueOf(storeNumFld.getText());
+   try {
          Store storeObj = new Store(storeNum);
-         if (storeObj.getAddress1() == "") {
-             
+      
+                
+         if (storeObj.getAddress1() == "" || storeObj.getAddress1() == null ) 
+         {
+            String msgStr = "Error 1.1 Invalid store number";
+            JOptionPane.showMessageDialog(this, msgStr); 
          }
-         Employee employeeObj = new Employee(storeNum, employeeIDfld.getText());
-         if (employeeObj.getFirstName() == "" ) {
+         else
+         {
+            Employee employeeObj = new Employee(storeNum, empIDFld.getText());
+            if (employeeObj.getFirstName() == "" || employeeObj.getFirstName() == null ) 
+            {
+                String msgStr = "Error 1.2 Invalid Employee ID";
+                JOptionPane.showMessageDialog(this, msgStr);   
+            }
+            else
+            {
+                String empPassword = employeeObj.getPassword();
+                System.out.println(empPassword);
+               
+                char[] empPasswordArr = new char[empPassword.toCharArray().length];
+                empPasswordArr = empPassword.toCharArray();
+                
+                char[] entPassword = new char[empPassword.toCharArray().length];
+                entPassword = passwordFld.getPassword() ; // passwordFld.getPassword(); //String.valueOf(passwordFld.)
+                System.out.println(entPassword);
+                
+                if (ChkPassword(empPasswordArr, entPassword)) 
+                {
+                    String msgStr = "Error 1.3 Incorrect password";
+                    JOptionPane.showMessageDialog(this, msgStr);   
+                }
+                else
+                {
+                    this.setVisible(false);
+                    TransactionForm transFrm = new TransactionForm(employeeObj);
+                    transFrm.setVisible(true);
+                    this.dispose();
+                }
+            }    
+        }
+   } 
+         catch (RuntimeException ex) {
              
-         }
-         if (employeeObj.getPassword() != passwordFld.getSelectedText()) {
-             
-         }
-         this.setVisible(false);
-         TransactionForm transFrm = new TransactionForm(employeeObj);
-         transFrm.setVisible(true);
-         this.dispose();
+           JOptionPane.showMessageDialog(this, ex);  
+         }                
     }//GEN-LAST:event_button1ActionPerformed
 
     private void storeNumFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storeNumFldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_storeNumFldActionPerformed
 
-    private void employeeIDfldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeIDfldActionPerformed
+    private void passwordFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_employeeIDfldActionPerformed
+    }//GEN-LAST:event_passwordFldActionPerformed
 
+    private void storeNumFldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_storeNumFldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_storeNumFldKeyReleased
+    private Boolean ChkPassword(char[] password1, char[] password2) {
+        boolean retFlag = false;
+        for (int i=0;i<9;i++){
+            System.out.println(password1[i] + "   " + password2[i]);
+            if (password1[i] != password2[i]) retFlag = true;
+        }
+        return retFlag;
+    }
     /**
      * @param args the command line arguments
      */
@@ -199,16 +252,17 @@ public class LogInForm extends javax.swing.JFrame {
             }
         });
     }
-
+    
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
-    private javax.swing.JTextField employeeIDfld;
+    private java.awt.TextField empIDFld;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField passwordFld;
-    private javax.swing.JTextField storeNumFld;
+    private java.awt.TextField storeNumFld;
     // End of variables declaration//GEN-END:variables
 }

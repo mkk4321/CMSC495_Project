@@ -11,7 +11,7 @@ package cmsc495_tt;
  */
 import java.util.*;
 import java.sql.*;  
-public class ConnectManager {
+public class ConnectManager  {
     private static String url = "jdbc:mysql://212.1.208.51/mkk4321c_cmsc495";
     private static String driverName = "com.mysql.jdbc.Driver";
     private static String username = "mkk4321c_sa";
@@ -24,10 +24,12 @@ public class ConnectManager {
             try {
                 con = DriverManager.getConnection(url, username, password);
                 } catch(SQLException ex) {
-                System.out.println("Failed to create the database connection");
+                System.out.println(ex);
+                throw new RuntimeException(ex);
                 }
         } catch (ClassNotFoundException ex) {
-            System.out.println("Driver not found");
+            System.out.println(ex);
+            
         }
         return con;
     }
