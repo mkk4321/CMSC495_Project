@@ -1,17 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cmsc495_tt;
 
-//import java.sql.SQLException;
-import java.sql.*;
-import java.util.*;
+package CMSC495_TT;
 /**
  *
  * @author vance.molhusen
  */
+
+/*  Tenacious Turtles Team
+    Apparel Point of Sale (APOS) system
+    Employee class
+*/
+
+import java.sql.*;
+import java.util.*;
+
 public class Employee {
     
     protected int storeNum;
@@ -23,6 +24,7 @@ public class Employee {
     private Connection con = null;
     private Statement stmt = null;
     private ResultSet rs = null;
+    // Constructor
     Employee(){
         storeNum = -1;
         employeeID = null;
@@ -30,6 +32,7 @@ public class Employee {
         lastName = null;
         designation = null;
     }
+    // Constructor with store numner and employee ID password
     Employee(int storeNumIn, String employeeIDIn) {
         con = ConnectManager.getConnection();
         String store_str = String.valueOf(storeNumIn);
@@ -53,11 +56,14 @@ public class Employee {
         }
     }
     
-    public void setStoreNum(int value){}
-    public void setEmployeeID(int value){}
-    public void setFirstName(String value){}
-    public void setLastName(String value){}
-    public void setDesignation(String value){}
+    // Setters
+    public void setStoreNum(int value){ storeNum = value;}
+    public void setEmployeeID(String value){ employeeID = value;}
+    public void setFirstName(String value){ firstName = value;}
+    public void setLastName(String value){ lastName = value;}
+    public void setDesignation(String value){designation = value;}
+    
+    // Getters
     public int getStoreNum(){
         return storeNum;
     }

@@ -1,22 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+package CMSC495_TT;
+/**
+ *
+ * @author Manoj
  */
-package cmsc495_tt;
+/* 
+    Tenacious Turtles Team
+    Apparel Point of Sale (APOS) system
+    Class for formatting JTable cells
+
+*/
 import java.awt.Component;
 import java.text.NumberFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-/**
- *
- * @author Manoj
- */
+
 public class CurrencyTableCellRenderer extends DefaultTableCellRenderer   {
    private static final NumberFormat FORMAT = NumberFormat.getCurrencyInstance();
 
+    // Overriding default formatter
     @Override
     public final Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {

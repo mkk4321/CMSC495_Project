@@ -1,14 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cmsc495_tt;
+
+package CMSC495_TT;
 
 /**
  *
  * @author Manoj
  */
+/*  Tenacious Turtles Team
+    Apparel Point of Sale (APOS) system
+
+    This class is for connecting to remote MySql database
+
+*/
 import java.util.*;
 import java.sql.*;  
 public class ConnectManager  {

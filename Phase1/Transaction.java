@@ -1,16 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+package CMSC495_TT;
+/**
+ *
+ * @author Manoj
  */
-package cmsc495_tt;
 
+/*  Transaction class.  This class has most of buisiness logic.
+    This class creates store object, employee object, and
+    vectors of InventoryItem ad TransactionItem objects. 
+    The class has transaction completion logic, upc change logic,
+    units change logic, getting prior sales information for returns
+    logic, and clear transaction logic.
+    
+
+*/
 import java.util.Date;
 import java.sql.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
-
 
 public class Transaction {
     protected int transNum;
@@ -30,13 +37,15 @@ public class Transaction {
     protected Vector<TransactionItem> transItemVector = new <TransactionItem> Vector();
     protected Vector<InventoryItem> invVector = new <InventoryItem> Vector();
     protected Store storeObj = new Store();
-    protected Employee employeeObj = new Employee();
-    protected TransactionTableModel transModelObj;
-    
+    protected Employee employeeObj = new Employee();  
+    protected TransactionTableModel transModelObj;  // For table model
+    // Default constructor
     Transaction() {
+        //Poupulating vector for table model
         for (int i=0;i<40;i++) {
             transItemVector.add(i, new TransactionItem());
         }
+        // Default settings
         transModelObj = new TransactionTableModel(transItemVector); 
         transType = "Sales";
         merchAmount = 0;
@@ -48,14 +57,16 @@ public class Transaction {
         storeCreditPayAmt = 0;
         cashPayAmt = 0;
     }
-    /*  Construct added by Manoj */
-    /*  This populates employee and store objects */
+    //  Constructor with parameters
+    //  This populates employee and store objects 
     Transaction(Employee value) {
         
         Connection con = null;
         ResultSet rs = null;
         con = ConnectManager.getConnection();
-    
+       
+        
+        // Getting transaction numnber from transaction table
         String sqlStr1 = "select trans_num from transaction_numbers";
         String sqlStr2 = "update transaction_numbers set trans_num = ? ";
              
@@ -66,9 +77,11 @@ public class Transaction {
             while(rs.next()) {
                transNum = rs.getInt(1);
             }
+            // Incrementing transaction number
             transNum = transNum + 1;
             rs.close();
             stmt1.close();
+            // Updating incremented transaction number on table
             PreparedStatement stmt2 = con.prepareStatement(sqlStr2);
             stmt2.setInt(1, transNum);
             stmt2.executeUpdate();
@@ -82,6 +95,7 @@ public class Transaction {
         for (int i=0;i<40;i++) {
             transItemVector.add(i, new TransactionItem());
         }
+        // Creating table model
         transModelObj = new TransactionTableModel(transItemVector);
         transType = "Sales";
         merchAmount = 0;
@@ -91,7 +105,7 @@ public class Transaction {
         totAmount = 0;
         paymentType = "Cash";
     }
-    
+    // Setters
     public void setTransNum(int value){
         transNum = value;
     }
@@ -132,6 +146,9 @@ public class Transaction {
     public void setCashPayAmt(double value) {
         cashPayAmt = value;
     }
+    
+    
+    // Getters
     public int getTransNum(){
         return transNum;
     }
@@ -170,8 +187,6 @@ public class Transaction {
     public double getCashPayAmt() {
         return cashPayAmt;
     }
-    
-    
     public Vector getTransItemVector(){
         return transItemVector;
     }
@@ -187,9 +202,14 @@ public class Transaction {
     public Employee getEmployeeObj() {
         return employeeObj;
     }
+    
+    // Business Logic
+    
+    //  UPC change in transaction item table
     public String upcChanged(int rw, int cl, String upcCode) {
         String msgStr = "";
         InventoryItem invItem = new InventoryItem(storeObj.getStoreNum(), upcCode);
+        // Check if entered UPC code is in the inventory
         if (invItem.getStyle() == null|| invItem.getStyle() == "") {
             msgStr = "Error 2.1 Invalid Item Entered: UPC " + upcCode;
             transItemVector.elementAt(rw).setUPC("");
@@ -208,12 +228,12 @@ public class Transaction {
         return "";
         }   
     }
-    
+    // When units change in transaction item table
     public String unitsChanged(int rw, int cl, int units) 
     {
         String msgStr = "";
         
-        
+        // Processing sales units change
         
         if (transType == "Sales") 
         {
@@ -263,12 +283,14 @@ public class Transaction {
                 transItemVector.elementAt(rw).setUnits(0);
             }                           
         }
+        // Processing returns units change
         else            
         {
                 
             System.out.println(paymentType);
             
             if (paymentType == "Store Credit") {
+                // Returns without original sales receipt
                 if (invVector.size() - 1 >= rw ) {    
                     if (invVector.elementAt(rw).getStyle() == "") 
                     {
@@ -280,7 +302,6 @@ public class Transaction {
                     { 
                       
                         double price = transItemVector.elementAt(rw).getPrice();
-                      //  invVector.elementAt(rw).addReturnsUnits(units);
                         transItemVector.elementAt(rw).setAmount(units * price * -1);   
                         merchAmount = 0;
                         taxAmount = 0;
@@ -308,11 +329,12 @@ public class Transaction {
 
                 }
             } else
-            {    
+            {   
+                // Returns with original sales receipt presented
                 System.out.println("Cash");
                 double price = transItemVector.elementAt(rw).getPrice();
                 // invVector.elementAt(rw).addReturnsUnits(units);
-                transItemVector.elementAt(rw).setAmount(units * price);
+                transItemVector.elementAt(rw).setAmount(units * price * -1);
                 merchAmount = 0;
                 taxAmount = 0;
                 totAmount = 0;
@@ -348,9 +370,10 @@ public class Transaction {
         }
         return "";
     }
-    public String paymentTypeSelected(String value) {
-        return "";
-    }
+    
+    
+    
+    // Completing transaction
     public String transactionCompleted() {
         Connection con = null;
         ResultSet rs = null;
@@ -358,6 +381,7 @@ public class Transaction {
         String dateStr = "";
         String sqlStr = "";
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        
         // Insert transaction details
         
         
@@ -398,6 +422,8 @@ public class Transaction {
                 }
             }
             stmt.close();
+            
+            // Store credit 
             if (transType == "Sales" && paymentType == "Store Credit") {
                 double stCrdtAmt = 0;
                 sqlStr = "select * from store_credit where trans_num = " +
@@ -418,7 +444,7 @@ public class Transaction {
                 stmt.executeUpdate();
                 
             }
-            
+            //  Insert into store credit
             if (transType == "Returns" && paymentType == "Store Credit") {
                sqlStr = "insert into store_credit values (?,?,?,?,?,?,?) ";
                stmt = con.prepareStatement(sqlStr);       
@@ -434,6 +460,7 @@ public class Transaction {
                stmt.executeUpdate();
             }
             stmt.close();
+            // Cash payment update
             if (transType == "Returns" && paymentType == "Cash") {
                sqlStr = "update transaction_detail set returned = ?, " +
                         "return_units = ?, return_date = ?, return_trans_num = ? " +
@@ -453,6 +480,8 @@ public class Transaction {
                }
                stmt.close();
             }
+            
+            // Insert into transaction header
             sqlStr = "insert into transaction_header values " +
                      "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
              
@@ -482,14 +511,14 @@ public class Transaction {
             stmt.setString(16, employeeObj.getEmployeeID());    
             stmt.executeUpdate();
             stmt.close();
-               
-            
-            
+   
             con.close();
         } catch (SQLException ex) {System.out.println(ex);
         }
         return "Completed";
     }
+    
+    // Getting new transction number from transaction_number table
     public void getNewTransNum() {
         Connection con = null;
         ResultSet rs = null;
@@ -498,7 +527,7 @@ public class Transaction {
         String sqlStr1 = "select trans_num from transaction_numbers";
         String sqlStr2 = "update transaction_numbers set trans_num = ? ";
              
-        
+        // Incrementing transaction number on transaction_number table
         try {
             Statement stmt1 = con.createStatement();
             rs = stmt1.executeQuery(sqlStr1);
@@ -530,6 +559,7 @@ public class Transaction {
         paymentType = "Cash";
         
     }
+    // Clear transaction and ready for a new entry
     public void clearTransaction() {
         transItemVector.clear();
         for (int i=0;i<40;i++) {
@@ -544,7 +574,9 @@ public class Transaction {
         cashPayAmt = 0;
         transModelObj = new TransactionTableModel(transItemVector);
     }
-    
+    // When original sales receipt presented for returns,
+    // load transaction item detail with original sales items
+    // with unreturned units
     public void setReturnsFromPreviousSales(int trans) {
         Connection con = null;
         Statement stmt = null;
@@ -552,6 +584,7 @@ public class Transaction {
         con = ConnectManager.getConnection();
         String trans_str = String.valueOf(trans);
      
+        // Getting unreturned units from the database
         String sqlStr = "select * from transaction_detail where trans_num = " +
                      trans_str + " and return_units < units ";
         transItemVector.clear();
@@ -559,8 +592,6 @@ public class Transaction {
         try {
             stmt = con.createStatement(); 
             rs = stmt.executeQuery(sqlStr);
-            // transItemVector = new <InventoryItem> Vector();
-
             int i = -1;
 
             while(rs.next()) {
@@ -599,7 +630,7 @@ public class Transaction {
         totAmount = 0;
         totUnits = 0;
         cashPayAmt = 0;
-
+        // Populate inv transaction item vector
         for (int i=0;i< transItemVector.size();i++) {
             double lineAmt = transItemVector.elementAt(i).getAmount();
             if (lineAmt != 0)  {
@@ -607,6 +638,7 @@ public class Transaction {
                totUnits += transItemVector.elementAt(i).getUnits();
                }
         }
+        // Setting amount fields
         taxAmount = ( merchAmount * taxRate ) / 100;
         totAmount = merchAmount + taxAmount;
         cashPayAmt = totAmount;

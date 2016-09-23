@@ -3,12 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cmsc495_tt;
+package CMSC495_TT;
 
 /**
  *
- * @author Manoj
+ * @author Ryan
  */
+
+/*  Tenacious Turtles Team
+    Apparel Point of Sale System
+    
+    Login in form using swing JFrame and JPanel.
+
+
+*/
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -143,13 +151,15 @@ public class LogInForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Code to validate store number, log-in ID, and password
+    
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
          int storeNum  = Integer.valueOf(storeNumFld.getText());
    try {
          Store storeObj = new Store(storeNum);
       
-                
+         // Store number validation     
          if (storeObj.getAddress1() == "" || storeObj.getAddress1() == null ) 
          {
             String msgStr = "Error 1.1 Invalid store number";
@@ -157,6 +167,7 @@ public class LogInForm extends javax.swing.JFrame {
          }
          else
          {
+            // Log-in ID validation
             Employee employeeObj = new Employee(storeNum, empIDFld.getText());
             if (employeeObj.getFirstName() == "" || employeeObj.getFirstName() == null ) 
             {
@@ -165,6 +176,7 @@ public class LogInForm extends javax.swing.JFrame {
             }
             else
             {
+                // Password check
                 String empPassword = employeeObj.getPassword();
                 System.out.println(empPassword);
                
@@ -182,6 +194,7 @@ public class LogInForm extends javax.swing.JFrame {
                 }
                 else
                 {
+                    // Go to transaction screen
                     this.setVisible(false);
                     TransactionForm transFrm = new TransactionForm(employeeObj);
                     transFrm.setVisible(true);
@@ -203,6 +216,7 @@ public class LogInForm extends javax.swing.JFrame {
     private void storeNumFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storeNumFldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_storeNumFldActionPerformed
+    // Separate method to check password.
     private Boolean ChkPassword(char[] password1, char[] password2) {
         boolean retFlag = false;
         for (int i=0;i<9;i++){
@@ -235,6 +249,9 @@ public class LogInForm extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LogInForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

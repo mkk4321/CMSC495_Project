@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cmsc495_tt;
+package CMSC495_TT;
 
+import cmsc495_tt_phase2.*;
 import java.util.Date;
 
 /**
@@ -12,6 +8,13 @@ import java.util.Date;
  
 * @author vance.molhusen
  */
+
+/*  Tenacious Turtles Team
+    Apparel Point of Sale (APOS) system
+    Transaction Item class
+    This has the item details such as style, color, size,
+    gender, units, price, and amount
+*/
 public class TransactionItem {
     
     protected String upc;
@@ -32,7 +35,7 @@ public class TransactionItem {
     protected int origTransNum;
     protected int origUnits;
     
-    
+    // Default constructor
     TransactionItem(){
     this.upc = "";
     this.style = "";
@@ -163,14 +166,12 @@ public class TransactionItem {
     }
         
     
-    
+    // GETTERS
     
     public double getTransAmount(){
         return amount;
     }
-  //  public Date getTransDateTime(){
-//        return dateTime;
-//    } 
+
     public boolean getReturned(){
         return returned;
     }

@@ -1,9 +1,17 @@
+package CMSC495_TT;
+
 /**
  *
  * @author Manoj
  */
 
-package cmsc495_tt;
+/*  Tenacious Turtles Team
+    Apparel Point of Sale (APOS) system
+
+    This class is used for table column navigation.  
+    JTable in swing does not have the ability fo
+    skip no-entry columns. 
+*/
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +39,7 @@ public class SkipColumnTable extends JTable {
     }
 
     /**
-     * Default constructor, initialising the table with a TableModel
+     * Default constructor, initializing the table with a TableModel
      *
      * @param tableModel
      */
@@ -149,7 +157,7 @@ public class SkipColumnTable extends JTable {
                     targetViewRow, targetViewCol));
 
         }
-
+        // Chaning selection in JTable
         super.changeSelection(targetViewRow, targetViewCol, toggle, expand);
     }
     

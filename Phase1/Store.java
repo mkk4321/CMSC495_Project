@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cmsc495_tt;
+package CMSC495_TT;
 
 /**
  *
  * @author vance.molhusen
  */
+
+/*
+    Tenacious Turtles Team
+    Apparel Point of Sale(APOS) system
+
+    Store class
+    This contains store attributes and methods.
+
+*/
+
 import java.sql.*;
 import java.util.*;
 import java.lang.RuntimeException;
@@ -23,7 +28,9 @@ public class Store {
     private double tax_rate;
     private Connection con = null;
     private Statement stmt = null;
-    private ResultSet rs = null;    
+    private ResultSet rs = null;   
+    
+    // Default constructor
     Store(){
         storeNum = -1;
         address1 = null;
@@ -34,16 +41,17 @@ public class Store {
         tax_rate =0;
     }
     
+    // Consgtructor with store number parameter
     Store(int storeNumIn) {   
     
-       
+      // Creating db connection 
       con = ConnectManager.getConnection();
      
         String store_str = String.valueOf(storeNumIn);
      
         String sqlStr = "select * from store_master where store_num = " +
                      store_str ;
-        
+        // Getting values from database
         try {
             stmt = con.createStatement(); 
             rs = stmt.executeQuery(sqlStr);
@@ -63,7 +71,7 @@ public class Store {
            
         }      
     }
-    
+    // GETTERS
     public int getStoreNum(){
         return storeNum;
     }
@@ -86,7 +94,7 @@ public class Store {
     public double getTaxRate() {
         return tax_rate;
     }
-    
+    // Full address
     public String getFullAddress() {
         String fullAddress = address1 + " " + address2 + ", " +
                 city + ", " + state + " " + zipcode;

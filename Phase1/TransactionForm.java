@@ -1,10 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cmsc495_tt;
 
+package CMSC495_TT;
+/**
+ *
+ * @author Manoj
+ */
+/*  Tenacious Turtles Team
+    Apparel Point of Sale (APOS) system
+    Transaction Form
+    This is GUI for sales/returns transaction.  This is part 
+    of presentation layer.  So not much buisiness logic
+    in this class except form control logics.
+
+    This form uses javax.swing features.
+
+*/
+import cmsc495_tt_phase2.*;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.tree.DefaultTreeCellEditor;
@@ -16,14 +26,12 @@ import javax.swing.KeyStroke;
 import java.util.*;
 
 
-/**
- *
- * @author Manoj
- */
+
  public class TransactionForm extends javax.swing.JFrame {
     private Transaction transObj = new Transaction();
     private Employee employeeObj;
-    // Edit Listeners added by Manoj     
+    
+    // Edit Listeners on transaction item table
     CellEditorListener UpcChange = new CellEditorListener() {
         public void editingCanceled(ChangeEvent e) {
         }
@@ -43,10 +51,12 @@ import java.util.*;
     /**
      * Creates new form TransactionForm
      */
+      
+    // Default constructor
     public TransactionForm() {
         initComponents();
     }
-    
+    // Constructor with employee object parameter
     public TransactionForm(Employee employeeObjIn) {
         this.employeeObj = employeeObjIn;
         this.transObj = new Transaction(employeeObj);
@@ -515,16 +525,15 @@ import java.util.*;
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_button4ActionPerformed
-
+//  Complete transaction action
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
         transObj.setPaymentType(String.valueOf(paymentType.getSelectedItem()));
         String msgStr = transObj.transactionCompleted();
-        // transObj = new Transaction(employeeObj);
-        // initComponents();
         
         transObj.clearTransaction();
+        // Clear controls on form
         ClearTransactionOnForm();
-        transTable.setModel(transObj.transModelObj);
+        transTable.setModel(transObj.getTransModelObj());
         transTable.getColumnModel().getColumn(9).setCellRenderer(new CurrencyTableCellRenderer());
         transTable.getColumnModel().getColumn(7).setCellRenderer(new CurrencyTableCellRenderer());
         transObj.getNewTransNum();
@@ -548,7 +557,7 @@ import java.util.*;
         
         
     }//GEN-LAST:event_button2ActionPerformed
-
+    // Log-out button logic
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         LogInForm logIn = new LogInForm();
         logIn.setVisible(true);
@@ -556,7 +565,7 @@ import java.util.*;
 
         // TODO add your handling code here:
     }//GEN-LAST:event_button1ActionPerformed
-
+    // Creating return transaction itesms from a previous sales receipt
     private void transTypeSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transTypeSalesActionPerformed
      // TODO add your handling code here:
     }//GEN-LAST:event_transTypeSalesActionPerformed
@@ -571,11 +580,11 @@ import java.util.*;
     private void paymentTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentTypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentTypeActionPerformed
-
+    // Clearing transaction for new 
     private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
         transObj.clearTransaction();
         ClearTransactionOnForm();
-        transTable.setModel(transObj.transModelObj);
+        transTable.setModel(transObj.getTransModelObj());
         transTable.getColumnModel().getColumn(9).setCellRenderer(new CurrencyTableCellRenderer());
         transTable.getColumnModel().getColumn(7).setCellRenderer(new CurrencyTableCellRenderer());
         
@@ -606,14 +615,13 @@ import java.util.*;
     private void receiptForReturnsCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_receiptForReturnsCaretPositionChanged
         
     }//GEN-LAST:event_receiptForReturnsCaretPositionChanged
-
+    // Creating return transaction items from original sales receipt number
     private void setReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setReturnActionPerformed
         if (transObj.getTransType() == "Returns") {
             paymentType.setSelectedIndex(0);
             transObj.setPaymentType("Cash");
             transObj.setReturnsFromPreviousSales(Integer.valueOf(receiptForReturns.getText()));
-            transTable = new SkipColumnTable();
-            transTable.setModel(transObj.transModelObj);
+            transTable.setModel(transObj.getTransModelObj());
             transTable.getColumnModel().getColumn(9).setCellRenderer(new CurrencyTableCellRenderer());
             transTable.getColumnModel().getColumn(7).setCellRenderer(new CurrencyTableCellRenderer());
             taxAmount.setValue(transObj.getTaxAmount());
@@ -637,7 +645,7 @@ import java.util.*;
         // TODO add your handling code here:
                   
     }//GEN-LAST:event_transTypeSalesStateChanged
-
+    // Sales transaction selected 
     private void transTypeSalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transTypeSalesMouseClicked
         if (transTypeSales.isSelected()) {
         transObj.setTransType(transTypeSales.getText());
@@ -650,12 +658,13 @@ import java.util.*;
         paymentType.setEnabled(true);
         storeCreditNumber.setEnabled(true);
         storeCreditAmtFld.setEnabled(true);
+        storeCreditAmtFld.setEditable(true);
         receiptForReturns.setEnabled(false);
         setReturn.setEnabled(false);
         
         }
     }//GEN-LAST:event_transTypeSalesMouseClicked
-
+    // REturns transaction selected
     private void transTypeReturnsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transTypeReturnsMouseClicked
         if (transTypeReturns.isSelected()) {
         transObj.setTransType("Returns");
@@ -679,7 +688,7 @@ import java.util.*;
     private void transactionNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transactionNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_transactionNumberActionPerformed
-
+    // UPC Change: set transaction item values
     public void UpcChanged() {
         String msgStr = "";
         int rw = transTable.getSelectedRow();
@@ -691,10 +700,14 @@ import java.util.*;
             JOptionPane.showMessageDialog(this, msgStr);
      
     }
+    // Units Change: run method in transaction and reset values on form
     public void UnitsChanged() {
         String msgStr = "";
+        System.out.println("Coming here");
+        
         int rw = transTable.getSelectedRow();
         int cl = transTable.getSelectedColumn();
+   
         int units =  (int)(transTable.getValueAt(rw, cl));
         msgStr = transObj.unitsChanged(rw, cl, units);
         if (msgStr != "") {
@@ -712,7 +725,7 @@ import java.util.*;
         
         }
     }
-    
+    // Clear transaction on form
     public void ClearTransactionOnForm() {
         taxAmount.setValue(0);
         gTotal.setValue(0);
@@ -720,8 +733,8 @@ import java.util.*;
         totalUnits.setValue(0);
         receiptForReturns.setText("");
         paymentType.setSelectedIndex(0);
-     //   transTypeSales.setSelected(true);
-     //   transTypeReturns.setSelected(false);
+        cashAmtFld.setValue(0);
+        storeCreditAmtFld.setValue(0);
         storeCreditNumber.setText("");
     
         
@@ -753,6 +766,198 @@ import java.util.*;
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TransactionForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

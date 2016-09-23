@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cmsc495_tt;
+
+package CMSC495_TT;
 
 /**
  *
  * @author Manoj
  */
+/*  Tenacious Turtles Team
+    Apparel Point of Sale System (APOS)
+    Inventory Item class
+
+    The idea of this class is to get store inventory item from
+    the database and store it in an object.  This has inventory item 
+    attributes and methods. Methods include adding and subtracting 
+    sales/return units to inventory.
+*/
 
 import java.sql.*;
 import java.util.*;
@@ -29,7 +34,7 @@ public class InventoryItem {
     private Statement stmt = null;
     private ResultSet rs = null;
     
-    
+    // Default constructor
     InventoryItem(){
         this.store_num = 0;
         this.upc = "";
@@ -42,10 +47,10 @@ public class InventoryItem {
         this.price = 0;
         this.units = 0;
     }
+    // Constructor with store number and UPC parameters
     InventoryItem(int storeIn, String upcIn) {
-        // this.upc = upcIn;
-             
-            
+        this.upc = upcIn;
+
         con = ConnectManager.getConnection();
         String store_str = String.valueOf(storeIn);
      
@@ -165,9 +170,11 @@ public class InventoryItem {
         this.units = value;
 
     }
+    // Method to add sales units to inventory
     public void addSalesUnits(int value) {
        this.salesUnits += value; 
     }
+    // Method to subtract sales units from inventory
     public void addReturnsUnits(int value) {
         this.returnUnits += value;
     }

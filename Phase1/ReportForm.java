@@ -1,14 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cmsc495_tt;
+package CMSC495_TT;
 
-/**
- *
- * @author Manoj
- */
+/*  Tenacious Turtles Team
+    Apparel Point of Sale (APOS) system
+    
+    This form will be used to filter criteria for 
+    Store Transaction Report.
+
+    This will be completed in Phase III
+*/
+
+
 public class ReportForm extends javax.swing.JFrame {
 
     /**
@@ -284,6 +285,9 @@ public class ReportForm extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ReportForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

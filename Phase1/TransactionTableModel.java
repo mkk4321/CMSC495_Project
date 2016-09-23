@@ -1,16 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cmsc495_tt;
-import java.util.Vector;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.*;
+
+package CMSC495_TT;
 /**
  *
  * @author vance.molhusen
  */
+
+/*  Tenacious Turtles Team
+    Apparel Point of Sales system (APOS)
+    Table model used for transaction items
+*/
+import java.util.Vector;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.*;
+
 public class TransactionTableModel extends AbstractTableModel {
     
     public static final int UPC_INDEX = 0;
@@ -23,20 +25,19 @@ public class TransactionTableModel extends AbstractTableModel {
     public static final int PRICE_INDEX = 7;
     public static final int UNITS_INDEX = 8;
     public static final int AMOUNT_INDEX = 9;
+    // Column access
     protected boolean[] canEdit = new boolean [] {
                 true, false, false, false, false, false, false, false, true, false
             };
-    /*
+    // Class types for each column
     protected Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
             };
-    */
-    protected Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
-            };
+    // Column heading
     protected String[] columnNames = {"UPC Code", "Style", "Style Name", "Color", "Color Name", "Size", "Gender", "               Price", "            Units", "            Amount"};
     protected Vector transactionData;
     
+    // Constructor with vector parameter
     public TransactionTableModel(Vector inputVector){
         this.transactionData = inputVector;
     }
@@ -64,7 +65,7 @@ public class TransactionTableModel extends AbstractTableModel {
                 return canEdit [columnIndex];
             }
     
-    
+    // Override getValueAt method
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         TransactionItem transItem = (TransactionItem) transactionData.get(rowIndex);
@@ -93,7 +94,7 @@ public class TransactionTableModel extends AbstractTableModel {
                 return new Object();
         }
     }
-    
+    // Set column access for skipping functionality
     public void setColumnAccess(int column, boolean access) {
         this.canEdit[column] = access;
     }
